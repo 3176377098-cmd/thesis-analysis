@@ -48,3 +48,4 @@ pdf/
 src/ui/_pages_backup/
 test_minimal.py
 test_paper.py
+test_output.txt
