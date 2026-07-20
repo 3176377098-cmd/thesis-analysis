@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project data
+data/papers/
+data/parsed/
+data/chroma/
+data/traces/
+!data/*/.gitkeep
+
+# Environment
+.env
+.env.local
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit (keep config, ignore secrets)
+.streamlit/secrets.toml
+
+# Test
+.pytest_cache/
+htmlcov/
+.coverage
+pdf/
+src/ui/_pages_backup/
+test_minimal.py
+test_paper.py

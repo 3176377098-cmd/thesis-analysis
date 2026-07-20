@@ -1,0 +1,49 @@
+# ============================================================
+# 核心依赖 - Multi-Agent 学术论文深度解析系统
+# ============================================================
+
+# --- Agent & RAG 框架 ---
+langgraph>=1.2.0
+langchain>=1.3.0
+langchain-core>=0.4.0
+langchain-openai>=0.3.0
+langchain-community>=0.4.0
+
+# --- PDF 解析 ---
+pymupdf>=1.24.0
+pdfplumber>=0.11.0
+
+# --- 向量存储与检索 ---
+chromadb>=1.4.0
+sentence-transformers>=5.0.0
+rank-bm25>=0.2.2
+
+# --- UI ---
+streamlit>=1.55.0
+
+# --- 结构化输出 ---
+pydantic>=2.0.0
+
+# --- Token 计数 ---
+tiktoken>=0.7.0
+
+# --- 工具库 ---
+python-dotenv>=1.0.0
+jinja2>=3.1.0
+loguru>=0.7.0
+rich>=13.0.0
+
+# --- Trace 可视化 ---
+plotly>=5.18.0
+networkx>=3.2.0
+
+# --- 中文分词 (BM25) ---
+jieba>=0.42.1
+
+# --- 数据处理 ---
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# --- 数据源连接 ---
+arxiv>=2.1.0
