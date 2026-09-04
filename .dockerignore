@@ -1,0 +1,57 @@
+# ===== Python 缓存 =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+
+# ===== 虚拟环境 =====
+venv/
+.venv/
+env/
+
+# ===== 运行时数据 (启动时动态创建) =====
+data/papers/*
+data/parsed/*
+data/chroma/*
+data/traces/*
+!data/*/.gitkeep
+
+# ===== Git =====
+.git/
+.gitignore
+.gitattributes
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===== 环境配置 (通过环境变量/Secrets注入) =====
+.env
+.env.local
+.streamlit/secrets.toml
+
+# ===== 测试 =====
+.pytest_cache/
+htmlcov/
+.coverage
+tests/
+test_*.py
+
+# ===== 文档 =====
+pdf/
+*.md
+!README.md
+
+# ===== 备份 =====
+src/ui/_pages_backup/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Docker =====
+Dockerfile
+.dockerignore
+docker-compose.yml
