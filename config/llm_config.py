@@ -1,6 +1,6 @@
 """
 LLM 配置工厂 - 创建 OpenAI 兼容的 ChatModel 实例
-支持 DeepSeek、OpenAI、Ollama 本地模型 (一键切换)
+支持 DeepSeek、OpenAI、Gemini (免费图片分析)、Ollama 本地模型 (一键切换)
 """
 
 from typing import Optional
@@ -47,10 +47,11 @@ def create_chat_model(
     """
     根据配置创建 LLM 聊天模型实例。
 
-    支持三种提供商，通过 UI 侧边栏切换:
+    支持四种提供商，通过 UI 侧边栏切换:
     - ollama:   本地 (默认，免费离线，无需 Key)
     - deepseek: 云端 (需要 API Key，可在 UI 直接输入)
     - openai:   云端 (需要 API Key，可在 UI 直接输入)
+    - gemini:   云端免费 (需要 API Key，可在 UI 直接输入，支持图片分析)
 
     Args:
         temperature: 温度参数
@@ -88,6 +89,12 @@ def create_chat_model(
         if temperature is None or temperature < 0.1:
             temperature = 0.3
         timeout = max(settings.AGENT_TIMEOUT_SECONDS, 300)
+    elif settings.LLM_PROVIDER == "gemini":
+        logger.info(
+            f"[免费云端] Gemini: {settings.llm_model} "
+            f"(1500次/天, 支持图片分析)"
+        )
+        timeout = max(settings.AGENT_TIMEOUT_SECONDS, 180)
     else:
         logger.info(
             f"[云端模型] provider={settings.LLM_PROVIDER}, "

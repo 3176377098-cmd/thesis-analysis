@@ -32,12 +32,15 @@ if "api_key_deepseek" not in st.session_state:
     st.session_state.api_key_deepseek = ""
 if "api_key_openai" not in st.session_state:
     st.session_state.api_key_openai = ""
+if "api_key_gemini" not in st.session_state:
+    st.session_state.api_key_gemini = ""
 
-provider_options = ["deepseek", "openai"] if IS_CLOUD else ["ollama", "deepseek", "openai"]
+provider_options = ["deepseek", "openai", "gemini"] if IS_CLOUD else ["ollama", "deepseek", "openai", "gemini"]
 provider_labels = {
     "ollama": "[Local] Ollama (Free)",
     "deepseek": "[Cloud] DeepSeek",
     "openai": "[Cloud] OpenAI",
+    "gemini": "[Free] Gemini (图片分析)",
 }
 provider = st.sidebar.selectbox(
     "Provider",
@@ -51,6 +54,23 @@ st.session_state.provider = provider
 if provider == "ollama":
     st.sidebar.success("Local mode - no key needed")
     st.sidebar.caption("Requires: ollama pull qwen3:14b")
+elif provider == "gemini":
+    skey = "api_key_gemini"
+    key_val = st.sidebar.text_input(
+        "Gemini API Key",
+        value=st.session_state[skey],
+        type="password",
+        placeholder="AIza... paste here",
+        key=f"key_input_gemini",
+    )
+    st.session_state[skey] = key_val
+    if key_val:
+        masked = "AIza..." + key_val[-4:] if len(key_val) > 10 else key_val
+        st.sidebar.success(f"Key: {masked}")
+        st.sidebar.caption("🆓 1500次/天免费 · 支持图片分析")
+    else:
+        st.sidebar.warning("Enter Gemini API Key")
+        st.sidebar.caption("🆓 Get: aistudio.google.com/apikey")
 else:
     label = {"deepseek": "DeepSeek", "openai": "OpenAI"}[provider]
     skey = f"api_key_{provider}"
@@ -124,7 +144,8 @@ def _ingest_file(filepath):
     if prov != "ollama":
         key_val = st.session_state.get(f"api_key_{prov}", "")
         if not key_val:
-            st.error(f"Enter {prov} API Key in the sidebar first.")
+            label = {"deepseek": "DeepSeek", "openai": "OpenAI", "gemini": "Gemini"}.get(prov, prov)
+            st.error(f"Enter {label} API Key in the sidebar first.")
             return
 
     with st.spinner("Ingesting... (parsing + formulas + images + embedding)"):

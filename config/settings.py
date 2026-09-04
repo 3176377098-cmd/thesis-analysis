@@ -35,7 +35,7 @@ class Settings(BaseSettings):
     )
 
     # ===== LLM 配置 =====
-    LLM_PROVIDER: Literal["deepseek", "openai", "ollama"] = "ollama"
+    LLM_PROVIDER: Literal["deepseek", "openai", "ollama", "gemini"] = "ollama"
 
     # DeepSeek 云端
     DEEPSEEK_API_KEY: str = ""
@@ -46,6 +46,11 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = ""
     OPENAI_BASE_URL: str = "https://api.openai.com/v1"
     OPENAI_MODEL: str = "gpt-4o"
+
+    # Google Gemini 云端 (免费额度: 1500次/天, 支持图片分析)
+    GEMINI_API_KEY: str = ""
+    GEMINI_BASE_URL: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
+    GEMINI_MODEL: str = "gemini-2.0-flash"  # 免费多模态模型
 
     # Ollama 本地 (免费，无需 API Key)
     OLLAMA_BASE_URL: str = "http://localhost:11434/v1"
@@ -115,6 +120,8 @@ class Settings(BaseSettings):
             return "ollama"  # Ollama 不需要真实 Key，但 ChatOpenAI 要求非空
         if self.LLM_PROVIDER == "deepseek":
             return self.DEEPSEEK_API_KEY
+        if self.LLM_PROVIDER == "gemini":
+            return self.GEMINI_API_KEY
         return self.OPENAI_API_KEY
 
     @property
@@ -124,6 +131,8 @@ class Settings(BaseSettings):
             return self.OLLAMA_BASE_URL
         if self.LLM_PROVIDER == "deepseek":
             return self.DEEPSEEK_BASE_URL
+        if self.LLM_PROVIDER == "gemini":
+            return self.GEMINI_BASE_URL
         return self.OPENAI_BASE_URL
 
     @property
@@ -133,6 +142,8 @@ class Settings(BaseSettings):
             return self.OLLAMA_MODEL
         if self.LLM_PROVIDER == "deepseek":
             return self.DEEPSEEK_MODEL
+        if self.LLM_PROVIDER == "gemini":
+            return self.GEMINI_MODEL
         return self.OPENAI_MODEL
 
     @property
